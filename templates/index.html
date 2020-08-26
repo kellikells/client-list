@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <!-- Link to jQuery  -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <script>
+
+        $(document).ready(function () {
+
+            // array for dataPoints for chart
+            var arr = [];
+            // getting data 
+            $.get('/getData', function (data) {
+                labelAndY(data);
+                getClients(data)
+            })
+
+            // dynamically builds client table 
+            // ==================================
+            function getClients(clients) {
+                for (let i = 0; i < clients.length; i++) {
+                    var firstName = clients[i].first_name;
+                    var lastName = clients[i].last_name;
+                    var leads = clients[i].lead_quantity;
+
+                    $("#work").append("<tr><td>" + firstName + " " + lastName + "</td>" + "<td>" + leads + "</td></tr>");
+                }
+            }
+
+            // getting datapoints for chart using data
+            // ==================================
+            function labelAndY(data) {
+                for (var key in data) {
+                    // console.log(data[key])
+                    let obj = { y: data[key].lead_quantity, label: data[key].first_name }
+                    arr.push(obj)
+                }
+            }
+
+            var options = {
+                title: {
+                    text: "Customers and number of new leads"
+                },
+                animationEnabled: true,
+                data: [{
+                    type: "pie",
+                    startAngle: 40,
+                    toolTipContent: "<b>{label}</b>: {y}",
+                    showInLegend: "true",
+                    legendText: "{label}",
+                    indexLabelFontSize: 16,
+                    indexLabel: "{label} - {y}",
+                    dataPoints: arr,
+                    // { y: 4, label: "Kelli Kells" },
+                }]
+            };
+            // placing chart to DOM
+            $("#chartContainer").CanvasJSChart(options);
+        });
+    </script>
+</head>
+
+<body>
+    <div class="container">
+
+        <div class="row">
+            <div class="col">
+                <h1>List of all customers and # of leads</h1>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <table class="table table-bordered">
+                    <tr id="tableHead">
+                        <th scope="row">Customer name:</th>
+                        <th scope="row">Number of Leads:</th>
+                    </tr>
+                    <tbody id="work">
+                        <!-- table data  -->
+                        <!-- ========================================= -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Chart  -->
+        <!-- ========================================= -->
+        <div class="row">
+            <div id="chartContainer" style="height: 370px; width: 100%;"></div>
+        </div>
+
+    </div>
+
+    <script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
+    <!-- BOOTSTRAP'S: Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+
+</body>
+
+</html>

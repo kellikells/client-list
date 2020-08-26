@@ -1,2 +1,45 @@
-# client-list
-using python flask and sql to dynamically build tables &amp; charts to represent data
+# CLIENT LIST
+
+------------------------------------------------------------
+
+## App's Purpose:
+- Apply python flask and data to dynamically build tables and charts 
+
+============================================================
+
+## Technologies Utilized:
+- Python
+- Flask
+- MySQL
+- Javascript
+- jQuery
+
+=============================================================
+
+## Developer Techniques:
+- Implemented jsonify to change data from a string to an 
+  object in order to access it on the index.html
+
+=============================================================
+
+ ### Screenshots of the app's functions:
+
+
+--------------------------------------------------------------
+
+![final product](clients1.jpg)
+
+
+
+--------------------------------------------------------------
+
+--------------------------------------------------------------
+
+--------------------------------------------------------------
+
+--------------------------------------------------------------
+
+--------------------------------------------------------------
+
+--------------------------------------------------------------
+
